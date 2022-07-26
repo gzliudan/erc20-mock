@@ -28,6 +28,15 @@
     "npm": ">=6.14.4",
     "yarn": ">=1.22.0"
   },
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "compile": "npx truffle compile",
+    "make": "yarn clean && yarn compile",
+    "deploy:xinfin": "npx truffle migrate --network xinfin",
+    "deploy:apothem": "npx truffle migrate --network apothem",
+    "deploy:polygon": "npx truffle migrate --network polygon",
+    "deploy:mumbai": "npx truffle migrate --network mumbai"
+  },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.1.9",
     "dotenv": "^16.0.3",
