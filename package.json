@@ -35,7 +35,11 @@
     "deploy:xinfin": "npx truffle migrate --network xinfin",
     "deploy:apothem": "npx truffle migrate --network apothem",
     "deploy:polygon": "npx truffle migrate --network polygon",
-    "deploy:mumbai": "npx truffle migrate --network mumbai"
+    "deploy:mumbai": "npx truffle migrate --network mumbai",
+    "verify:xinfin": "npx truffle run verify --network xinfin TestCoin --verifiers=etherscan",
+    "verify:apothem": "npx truffle run verify --network apothem TestCoin --verifiers=etherscan --debug",
+    "verify:polygon": "npx truffle run verify --network polygon TestCoin",
+    "verify:mumbai": "npx truffle run verify --network mumbai TestCoin --debug"
   },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.1.9",

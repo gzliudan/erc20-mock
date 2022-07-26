@@ -44,10 +44,22 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 require('dotenv').config();
-const { MNEMONIC } = process.env;
+const { MNEMONIC, ETHERSCAN_API_KEY, POLYGONSCAN_API_KEY, XDC_API_KEY } = process.env;
 
 if (!MNEMONIC) {
   console.log('MNEMONIC is not set in file .env !');
+}
+
+// if (!ETHERSCAN_API_KEY) {
+//   console.log('ETHERSCAN_API_KEY is not set in file .env !');
+// }
+
+if (!POLYGONSCAN_API_KEY) {
+  console.log('POLYGONSCAN_API_KEY is not set in file .env !');
+}
+
+if (!XDC_API_KEY) {
+  console.log('XDC_API_KEY is not set in file .env !');
 }
 
 const MUMBAI_RPC_LIST = [
@@ -136,6 +148,11 @@ module.exports = {
       skipDryRun: true,
       gasPrice: 250000000,
       networkCheckTimeout: 90000,
+      verify: {
+        apiUrl: 'https://api-xdc.blocksscan.io/api',
+        apiKey: XDC_API_KEY,
+        explorerUrl: 'https://explorer.xinfin.network/address',
+      },
     },
     apothem: {
       provider: () =>
@@ -151,6 +168,11 @@ module.exports = {
       skipDryRun: true,
       gasPrice: 250000000,
       networkCheckTimeout: 90000,
+      verify: {
+        apiUrl: 'https://api-apothem.blocksscan.io/api',
+        apiKey: XDC_API_KEY,
+        explorerUrl: 'https://explorer.apothem.network/address',
+      },
     },
     polygon: {
       provider: () =>
@@ -203,6 +225,13 @@ module.exports = {
         // evmVersion: 'paris',
       },
     },
+  },
+
+  plugins: ['truffle-plugin-verify'],
+
+  api_keys: {
+    etherscan: ETHERSCAN_API_KEY,
+    polygonscan: POLYGONSCAN_API_KEY,
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
