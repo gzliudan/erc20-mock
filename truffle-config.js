@@ -41,10 +41,36 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+require('dotenv').config();
+const { MNEMONIC } = process.env;
+
+if (!MNEMONIC) {
+  console.log('MNEMONIC is not set in file .env !');
+}
+
+const MUMBAI_RPC_LIST = [
+  'https://rpc-mumbai.maticvigil.com',
+  'https://rpc.ankr.com/polygon_mumbai',
+  'https://matic-mumbai.chainstacklabs.com',
+  'https://polygon-testnet.public.blastapi.io',
+  'https://polygon-mumbai.blockpi.network/v1/rpc/public',
+  'https://endpoints.omniatech.io/v1/matic/mumbai/public',
+];
+
+const POLYGONSCAN_RPC_LIST = [
+  'https://polygon-rpc.com',
+  'https://rpc.ankr.com/polygon',
+  'https://polygon.llamarpc.com',
+  'https://rpc-mainnet.maticvigil.com',
+  'https://polygon-bor.publicnode.com',
+  'https://poly-rpc.gateway.pokt.network',
+  'https://rpc-mainnet.matic.quiknode.pro',
+  'https://polygon-mainnet.public.blastapi.io',
+  'https://polygon.blockpi.network/v1/rpc/public',
+  'https://endpoints.omniatech.io/v1/matic/mainnet/public',
+];
 
 module.exports = {
   /**
@@ -96,6 +122,66 @@ module.exports = {
     //   network_id: 2111,   // This network is yours, in the cloud.
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    xinfin: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          providerOrUrl: 'https://erpc.xinfin.network',
+        }),
+      network_id: '50',
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      gasPrice: 250000000,
+      networkCheckTimeout: 90000,
+    },
+    apothem: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          providerOrUrl: 'https://erpc.apothem.network',
+        }),
+      network_id: '51',
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      gasPrice: 250000000,
+      networkCheckTimeout: 90000,
+    },
+    polygon: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          providerOrUrl: POLYGONSCAN_RPC_LIST[1],
+        }),
+      network_id: '137',
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      gasPrice: 40000000000,
+      networkCheckTimeout: 90000,
+    },
+    mumbai: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          providerOrUrl: MUMBAI_RPC_LIST[1],
+        }),
+      network_id: '80001',
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      gasPrice: 40000000000,
+      networkCheckTimeout: 90000,
+    },
   },
 
   // Set default mocha options here, use special reporters, etc.
@@ -106,16 +192,17 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.19",      // Fetch exact version from solc-bin (default: truffle's version)
-      // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
-      //  evmVersion: "byzantium"
-      // }
-    }
+      version: '0.8.19', // Fetch exact version from solc-bin (default: truffle's version)
+      // docker: true, // Use "0.5.1" you've installed locally with docker (default: false)
+      settings: {
+        // See the solidity docs for advice about optimization and evmVersion
+        optimizer: {
+          enabled: false,
+          runs: 200,
+        },
+        // evmVersion: 'paris',
+      },
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
