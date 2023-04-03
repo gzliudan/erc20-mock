@@ -54,6 +54,7 @@
     "solhint": "^3.4.1",
     "solhint-plugin-prettier": "^0.0.5",
     "truffle": "^5.8.1",
+    "truffle-flattener": "^1.6.0",
     "truffle-plugin-verify": "^0.6.2"
   },
   "dependencies": {
