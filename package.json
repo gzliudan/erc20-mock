@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.1.9",
+    "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
